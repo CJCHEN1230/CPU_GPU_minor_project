@@ -1,14 +1,13 @@
 #include<stdio.h>
 #include<malloc.h>
-#include"kernel.h"
 #include<iostream>
 
-extern double *d_answer;
-extern double *h_answer;
-extern double *hb_answer;
 
-void hardy_cross()
+
+int main()
 {
+	
+
 	double Q12 = 5;
 	double Q13 = 5;
 	double Q23 = 0;
@@ -60,28 +59,9 @@ void hardy_cross()
 	}
 	printf("\nQ12:%f    \nQ13:%f    \nQ23:%f    \nQ24:%f    \nQ34:%f    ", Q12, Q13, Q23, Q24, Q34);
 
-}
 
 
 
-
-
-
-int main()
-{
-	Allocate_Memory();
-
-	Send_To_Device();
-
-	Launch_hardy_cross();
-
-	Get_From_Memory();
-	
-	Free_Memory();
-
-	//printf("\nQ12:%f    \nQ13:%f    \nQ23:%f    \nQ24:%f    \nQ34:%f    ", hb_answer[0], hb_answer[1], hb_answer[2], hb_answer[3], hb_answer[4]);
-
-	hardy_cross();
 	system("Pause");
 	return 0;
 }
