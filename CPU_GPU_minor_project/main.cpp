@@ -17,7 +17,7 @@ void hardy_cross()
 
 	double r12 = 5;
 	double r13 = 1;
-	double r23 = 1;
+	double r23 = 2.111;
 	double r24 = 1;
 	double r34 = 5;
 	double dQ_1;
