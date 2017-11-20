@@ -11,9 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{8A889196-DD8E-4CCB-9B86-AE7E9B47D90D}</ProjectGuid>
-    <RootNamespace>CPU_GPU_minor_project</RootNamespace>
-    <ProjectName>Question1and2</ProjectName>
+    <ProjectGuid>{D7A06BEC-EBAC-4744-83E8-4BACAE8E184F}</ProjectGuid>
+    <RootNamespace>Question1_2</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
