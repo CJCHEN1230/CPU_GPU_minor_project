@@ -13,7 +13,7 @@ void Allocate_Memory()
 	size_t size = 5 * sizeof(double);
 	h_answer = (double*)malloc(size);
 	hb_answer = (double*)malloc(size);
-	Error=cudaMalloc((void**)&d_answer, size);
+	Error = cudaMalloc((void**)&d_answer, size);
 
 
 	printf("cuda malloc error message is %s", cudaGetErrorString(Error));
@@ -22,6 +22,7 @@ void Allocate_Memory()
 void Free_Memory()
 {
 	if (h_answer) free(h_answer);
+	if (hb_answer) free(hb_answer);
 	if (d_answer) cudaFree(d_answer);
 }
 void Send_To_Device()
@@ -34,7 +35,7 @@ void Send_To_Device()
 void Get_From_Memory()
 {
 	size_t size = 5 * sizeof(double);
-	cudaError_t Error;	
+	cudaError_t Error;
 	Error = cudaMemcpy(hb_answer, d_answer, size, cudaMemcpyDeviceToHost);
 	printf("\nCUDA error(memcpy d_answer->h_answer)=%s\n", cudaGetErrorString(Error));
 }
@@ -55,28 +56,22 @@ __global__ void hardy_cross(double * вь_a)
 	double dQ_1;
 	double dQ_2;
 
-	int c12 = 0;
-	int c13 = 0;
-	int c23 = 0;
-	int c24 = 0;
-	int c34 = 0;
+	int c12 = 1;
+	int c13 = 1;
+	int c23 = 1;
+	int c24 = 1;
+	int c34 = 1;
 
 
-	int no_iteraion = 5;
+	int no_iteraion = 100;
 
 	for (int i = 0; i < no_iteraion; i++)
 	{
-		if (Q12 != 0)
-			c12 = Q12 / fabs(Q12);
-		if (Q13 != 0)
-			c13 = Q13 / fabs(Q13);
-		if (Q23 != 0)
-			c23 = Q23 / fabs(Q23);
-		if (Q24 != 0)
-			c24 = Q24 / fabs(Q24);
-		if (Q34 != 0)
-			c34 = Q34 / fabs(Q34);
-
+		c12 = Q12 > 0 ? 1 : -1;
+		c13 = Q13 > 0 ? 1 : -1;
+		c23 = Q23 > 0 ? 1 : -1;
+		c24 = Q24 > 0 ? 1 : -1;
+		c34 = Q34 > 0 ? 1 : -1;
 
 
 		dQ_1 = -(c12*r12 *Q12 *Q12 + c23*r23*Q23*Q23 - c13*r13*Q13*Q13) / (2 * r12*fabs(Q12) + 2 * r23*fabs(Q23) + 2 * r13*fabs(Q13));
@@ -90,19 +85,19 @@ __global__ void hardy_cross(double * вь_a)
 		Q34 = Q34 - dQ_2;
 
 	}
-	
-	
+
+
 
 	вь_a[0] = Q12;
 	вь_a[1] = Q13;
 	вь_a[2] = Q23;
 	вь_a[3] = Q24;
 	вь_a[4] = Q34;
-	
+
 
 
 }
-void Launch_hardy_cross() 
+void Launch_hardy_cross()
 {
 	hardy_cross << <1, 1 >> > (d_answer);
 }
